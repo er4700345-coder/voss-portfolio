@@ -116,34 +116,55 @@ const projects = [
 ];
 
 const App: React.FC = () => {
+  const scrollTo = (id: string) => {
+    const el = document.getElementById(id);
+    el?.scrollIntoView({ behavior: 'smooth' });
+  };
+
   return (
     <div className="min-h-screen bg-[#0a0a0a] text-white font-mono">
+      {/* Sticky Nav */}
+      <nav className="sticky top-0 z-50 bg-[#0a0a0a]/95 border-b border-white/10 backdrop-blur">
+        <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
+          <div className="font-bold tracking-tighter text-xl">VOSS</div>
+          <div className="flex items-center gap-8 text-sm">
+            <button onClick={() => scrollTo('systems')} className="hover:text-white/60 transition">SYSTEMS</button>
+            <button onClick={() => scrollTo('thinking')} className="hover:text-white/60 transition">THINKING</button>
+            <button onClick={() => scrollTo('founder')} className="hover:text-white/60 transition">FOUNDER</button>
+            <button onClick={() => scrollTo('arsenal')} className="hover:text-white/60 transition">ARSENAL</button>
+            <button onClick={() => scrollTo('proof')} className="hover:text-white/60 transition">PROOF</button>
+            <button onClick={() => scrollTo('contact')} className="hover:text-white/60 transition">CONTACT</button>
+          </div>
+          <a href="https://github.com/er4700345-coder" target="_blank" className="text-xs tracking-widest border border-white/30 px-4 py-1.5 hover:bg-white hover:text-black transition">GITHUB</a>
+        </div>
+      </nav>
+
       {/* Hero */}
-      <section className="min-h-screen flex items-center justify-center px-6 border-b border-white/10">
+      <section className="min-h-[90vh] flex items-center justify-center px-6 border-b border-white/10 pt-16">
         <div className="max-w-5xl mx-auto text-center">
           <div className="mb-8 flex justify-center">
-            <div className="px-4 py-1 border border-white/30 text-xs tracking-[4px] text-white/60">SYSTEMS ENGINEER • ARCHITECT • RESEARCHER</div>
+            <div className="px-5 py-1.5 border border-white/30 text-xs tracking-[4px] text-white/60">SYSTEMS ENGINEER • ARCHITECT • RESEARCHER</div>
           </div>
           
-          <h1 className="text-7xl md:text-[120px] font-bold tracking-tighter mb-6">DIVINE SUNDAY</h1>
-          <div className="text-2xl md:text-4xl text-white/80 tracking-tight mb-4">VOSS 🥷</div>
+          <h1 className="text-7xl md:text-[120px] font-bold tracking-tighter mb-4">DIVINE SUNDAY</h1>
+          <div className="text-3xl md:text-5xl text-white/80 tracking-tight mb-8">VOSS 🥷</div>
           
-          <p className="max-w-2xl mx-auto text-xl text-white/60 mb-12">
+          <p className="max-w-2xl mx-auto text-xl text-white/60 mb-14">
             I design and build high-performance software systems across developer infrastructure, 
             security automation, compliance intelligence, distributed architectures, compilers, 
             research systems, and enterprise-grade platforms.
           </p>
 
           <div className="flex flex-col md:flex-row gap-4 justify-center">
-            <a href="#systems" className="group inline-flex items-center justify-center px-8 py-4 border border-white text-sm tracking-widest hover:bg-white hover:text-black transition-all">
-              VIEW SYSTEMS <ArrowRight className="ml-3 group-hover:translate-x-1 transition" size={16} />
+            <button onClick={() => scrollTo('systems')} className="group inline-flex items-center justify-center px-9 py-4 border border-white text-sm tracking-widest hover:bg-white hover:text-black transition-all">
+              VIEW SYSTEMS <ArrowRight className="ml-3 group-hover:translate-x-1 transition" size={17} />
+            </button>
+            <a href="https://github.com/er4700345-coder" target="_blank" className="inline-flex items-center justify-center px-9 py-4 border border-white/40 text-sm tracking-widest hover:border-white transition-all">
+              GITHUB <Github className="ml-3" size={17} />
             </a>
-            <a href="https://github.com/er4700345-coder" target="_blank" className="inline-flex items-center justify-center px-8 py-4 border border-white/40 text-sm tracking-widest hover:border-white transition-all">
-              GITHUB <Github className="ml-3" size={16} />
-            </a>
-            <a href="https://t.me/vxssroot" target="_blank" className="inline-flex items-center justify-center px-8 py-4 border border-white/40 text-sm tracking-widest hover:border-white transition-all">
+            <button onClick={() => scrollTo('contact')} className="inline-flex items-center justify-center px-9 py-4 border border-white/40 text-sm tracking-widest hover:border-white transition-all">
               CONTACT
-            </a>
+            </button>
           </div>
         </div>
       </section>
@@ -167,12 +188,12 @@ const App: React.FC = () => {
               initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ delay: index * 0.03 }}
-              className="group border border-white/10 hover:border-white/40 p-9 transition-all flex flex-col"
+              className="group border border-white/10 hover:border-white/50 p-9 transition-all flex flex-col bg-[#111]"
             >
               <div className="flex justify-between items-start mb-6">
                 <div>
                   <div className="font-mono text-xs tracking-[2px] text-white/50 mb-2">{project.category}</div>
-                  <h3 className="text-4xl font-bold tracking-tighter mb-3 group-hover:text-white/90 transition-colors">{project.name}</h3>
+                  <h3 className="text-4xl font-bold tracking-tighter mb-3 group-hover:text-white transition-colors">{project.name}</h3>
                 </div>
                 <div className="px-3 py-1 text-xs border border-white/20 text-white/60 self-start">{project.status}</div>
               </div>
@@ -196,7 +217,7 @@ const App: React.FC = () => {
 
               <div className="mt-auto pt-8 border-t border-white/10 flex items-center justify-between text-xs">
                 <div className="flex gap-2 flex-wrap">
-                  {project.stack.slice(0, 3).map((s, i) => (
+                  {project.stack.map((s, i) => (
                     <span key={i} className="px-3 py-1 border border-white/20">{s}</span>
                   ))}
                 </div>
@@ -212,7 +233,7 @@ const App: React.FC = () => {
       </section>
 
       {/* Systems Thinking */}
-      <section className="max-w-5xl mx-auto px-6 py-24 border-b border-white/10">
+      <section id="thinking" className="max-w-5xl mx-auto px-6 py-24 border-b border-white/10">
         <div className="grid md:grid-cols-12 gap-x-6">
           <div className="md:col-span-5">
             <div className="sticky top-24">
@@ -231,7 +252,7 @@ const App: React.FC = () => {
       </section>
 
       {/* Founder Section */}
-      <section className="max-w-5xl mx-auto px-6 py-24 border-b border-white/10">
+      <section id="founder" className="max-w-5xl mx-auto px-6 py-24 border-b border-white/10">
         <div className="text-xs tracking-[3px] text-white/50 mb-4">FOUNDER MODE</div>
         <h2 className="text-6xl font-bold tracking-tighter mb-16">OPERATOR, NOT EMPLOYEE</h2>
         
@@ -246,7 +267,7 @@ const App: React.FC = () => {
       </section>
 
       {/* Technical Arsenal */}
-      <section className="max-w-5xl mx-auto px-6 py-24 border-b border-white/10">
+      <section id="arsenal" className="max-w-5xl mx-auto px-6 py-24 border-b border-white/10">
         <div className="text-xs tracking-[3px] text-white/50 mb-4">ARSENAL</div>
         <h2 className="text-6xl font-bold tracking-tighter mb-16">TECHNICAL DEPTH</h2>
         
@@ -262,7 +283,7 @@ const App: React.FC = () => {
       </section>
 
       {/* Proof of Work */}
-      <section className="max-w-5xl mx-auto px-6 py-24 border-b border-white/10">
+      <section id="proof" className="max-w-5xl mx-auto px-6 py-24 border-b border-white/10">
         <div className="text-xs tracking-[3px] text-white/50 mb-4">PROOF</div>
         <h2 className="text-6xl font-bold tracking-tighter mb-16">EXECUTION RECORD</h2>
         
@@ -272,7 +293,8 @@ const App: React.FC = () => {
             "SLIME compiler: full pipeline from source to validated WASM execution",
             "Leviathan Kernel: formal modeling of institutional collapse and corruption",
             "Multiple production startups shipped and operated at scale",
-            "Security research archive with real-world offensive findings"
+            "Security research archive with real-world offensive findings",
+            "Pull Shark ×2 • GitHub achievements unlocked"
           ].map((item, i) => (
             <div key={i} className="border-t border-white/10 py-8 text-xl text-white/80">{item}</div>
           ))}
@@ -280,7 +302,7 @@ const App: React.FC = () => {
       </section>
 
       {/* Contact */}
-      <section className="max-w-3xl mx-auto px-6 py-24 text-center">
+      <section id="contact" className="max-w-3xl mx-auto px-6 py-24 text-center">
         <div className="text-sm tracking-[4px] text-white/50 mb-8">SERIOUS BUILDERS KNOW WHERE TO FIND ME</div>
         
         <div className="flex flex-col items-center gap-4 text-sm">
